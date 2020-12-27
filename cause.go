@@ -21,9 +21,9 @@ func (c *causeError) Is(err error) bool {
 	return false
 }
 
-//Cause wrap an error in a another error
+//Cause wrap an error in a another error.
 //returns nil if `cause` is nil.
-//if `err` is nil `cause` is returned
+//if `err` is nil `cause` is returned.
 func Cause(err, cause error) error {
 	if cause == nil {
 		return nil
