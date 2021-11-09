@@ -9,8 +9,8 @@ func (w *wrappedErr) Error() string { return w.err + ": " + w.real.Error() }
 
 func (w *wrappedErr) Unwrap() error { return w.real }
 
-//Wrap wrap the given error.
-//This does nothing if the error is nil
+// Wrap wrap the given error.
+// This does nothing if the error is nil.
 func Wrap(str string, err error) error {
 	if err == nil {
 		return nil

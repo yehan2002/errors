@@ -1,7 +1,7 @@
 package errors
 
 import (
-	"reflect"
+	"errors"
 )
 
 type causeError struct{ err, cause error }
@@ -10,20 +10,11 @@ func (c *causeError) Error() string { return c.err.Error() + ": " + c.cause.Erro
 
 func (c *causeError) Unwrap() error { return c.cause }
 
-func (c *causeError) Is(err error) bool {
-	if err == nil {
-		return err == c.err
-	}
-	typ := reflect.TypeOf
-	if errV, target := typ(err), typ(c.err); errV.Comparable() && target.Comparable() {
-		return err == c.err
-	}
-	return false
-}
+func (c *causeError) Is(target error) bool { return errors.Is(c.err, target) }
 
-//Cause wrap an error in a another error.
-//returns nil if `cause` is nil.
-//if `err` is nil `cause` is returned.
+// Cause wraps an error in a another error.
+// This returns nil if `cause` is nil.
+// If `err` is nil `cause` is returned.
 func Cause(err, cause error) error {
 	if cause == nil {
 		return nil
