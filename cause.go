@@ -24,3 +24,11 @@ func Cause(err, cause error) error {
 	}
 	return &causeError{err: err, cause: cause}
 }
+
+// CauseStr like `Cause` but cause is a string instead of an error
+func CauseStr(err error, cause string) error {
+	if err != nil {
+		err = Cause(err, *(*Error)(&cause))
+	}
+	return err
+}
