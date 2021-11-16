@@ -28,7 +28,7 @@ func Cause(err, cause error) error {
 // CauseStr like `Cause` but cause is a string instead of an error
 func CauseStr(err error, cause string) error {
 	if err != nil {
-		err = Cause(err, *(*Error)(&cause))
+		err = Cause(err, New(cause))
 	}
 	return err
 }
