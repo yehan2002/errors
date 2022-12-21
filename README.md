@@ -1,4 +1,4 @@
-# Errors [![Go Reference](https://pkg.go.dev/badge/github.com/yehan2002/errors.svg)](https://pkg.go.dev/github.com/yehan2002/errors)
+# Errors [![Go Reference](https://pkg.go.dev/badge/github.com/yehan2002/errors.svg)](https://pkg.go.dev/github.com/yehan2002/errors) [![Go Report Card](https://goreportcard.com/badge/github.com/yehan2002/errors)](https://goreportcard.com/report/github.com/yehan2002/errors)
 
 A simple package for creating and wrapping errors in golang
 
