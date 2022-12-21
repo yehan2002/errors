@@ -19,6 +19,8 @@ var _ error = Const("test")
 
 func (c Const) Error() string { return *(*string)(&c) }
 
-// New returns a new error.
-// `e` should be in the form of `package: func: error message` or `package: error message`
+// New returns an error that formats as the given text.
+// Each call to New returns a distinct error value even if the text is identical.
+//
+// This function is an alias to `errors.New` in the standard library.
 func New(e string) error { return errors.New(e) }
