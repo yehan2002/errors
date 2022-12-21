@@ -10,7 +10,9 @@ func (c *causeError) Error() string { return c.err.Error() + ": " + c.cause.Erro
 
 func (c *causeError) Unwrap() error { return c.cause }
 
-func (c *causeError) Is(target error) bool { return errors.Is(c.err, target) }
+func (c *causeError) Is(target error) bool {
+	return errors.Is(c.err, target) || errors.Is(c.cause, target)
+}
 
 // Cause wraps an error in a another error.
 // This returns nil if `cause` is nil.
