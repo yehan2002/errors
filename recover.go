@@ -6,7 +6,7 @@ import (
 )
 
 // ErrPanic a recovered panic
-const ErrPanic Error = "panic"
+const ErrPanic Const = "panic"
 
 // Recover recovers from a panic.
 // This function must be deferred.
