@@ -12,6 +12,7 @@ import "errors"
 type Const string
 
 // Error an error that can be used as a constant
+//
 // Deprecated: use errors.Const for constants and errors.New for other uses.
 type Error = Const
 
