@@ -13,14 +13,14 @@ import "errors"
 // An error type might provide an Is method so it can be treated as equivalent
 // to an existing error.
 //
-// This function is an alias to `errors.Is` in the standard library.
+// This function is an alias to [errors.Is] in the standard library.
 func Is(err, target error) bool { return errors.Is(err, target) }
 
 // Unwrap returns the result of calling the Unwrap method on err, if err's
 // type contains an Unwrap method returning error.
 // Otherwise, Unwrap returns nil.
 //
-// This function is an alias to `errors.Unwrap` in the standard library.
+// This function is an alias to [errors.Unwrap] in the standard library.
 func Unwrap(err error) error { return errors.Unwrap(err) }
 
 // As finds the first error in err's chain that matches target, and if so, sets
@@ -40,5 +40,5 @@ func Unwrap(err error) error { return errors.Unwrap(err) }
 // As panics if target is not a non-nil pointer to either a type that implements
 // error, or to any interface type.
 //
-// This function is an alias to `errors.As` in the standard library.
+// This function is an alias to [errors.As] in the standard library.
 func As(err error, target interface{}) bool { return errors.As(err, target) }
