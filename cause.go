@@ -18,6 +18,8 @@ func (c *causeError) Is(target error) bool {
 	return errors.Is(c.err, target) || errors.Is(c.cause, target)
 }
 
+type causeError2 struct{ causeError }
+
 // Cause wraps an error in a another error.
 // This returns nil if `cause` is nil.
 // If `err` is nil `cause` is returned.
@@ -28,7 +30,7 @@ func Cause(err, cause error) error {
 	if err == nil {
 		return cause
 	}
-	return &causeError{err: err, cause: cause}
+	return &causeError2{causeError{err: err, cause: cause}}
 }
 
 // CauseStr like `Cause` but cause is a string instead of an error
