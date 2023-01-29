@@ -10,6 +10,10 @@ func (c *causeError) Error() string { return c.err.Error() + ": " + c.cause.Erro
 
 func (c *causeError) Unwrap() error { return c.cause }
 
+func (c *causeError) As(target any) bool {
+	return errors.As(c.err, target) || errors.As(c.cause, target)
+}
+
 func (c *causeError) Is(target error) bool {
 	return errors.Is(c.err, target) || errors.Is(c.cause, target)
 }
