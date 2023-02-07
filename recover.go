@@ -18,21 +18,7 @@ const ErrPanic Const = "panic"
 //	   }
 func Recover(err *error) {
 	if r := recover(); r != nil {
-		e, ok := r.(error)
-		if !ok {
-			e = fmt.Errorf("%s", r)
-		}
-
-		// `e` will be nil in the following case:
-		// 		var err error
-		// 		panic(err)
-		if e == nil {
-			e = New("error(nil)")
-		}
-
-		// TODO: err may already have a value. keep the original value?
-
-		*err = Cause(ErrPanic, e)
+		recoverErr(err, r, nil)
 	}
 }
 
@@ -46,22 +32,29 @@ func Recover(err *error) {
 //	   }
 func RecoverStack(err *error) {
 	if r := recover(); r != nil {
-		e, ok := r.(error)
-		if !ok {
-			e = fmt.Errorf("%s", r)
-		}
-
-		// `e` will be nil in the following case:
-		// 		var err error
-		// 		panic(err)
-		if e == nil {
-			e = New("error(nil)")
-		}
-
-		// TODO: err may already have a value. keep the original value?
-
-		*err = Cause(ErrPanic, &panicStackError{err: e, stack: debug.Stack()})
+		recoverErr(err, r, debug.Stack())
 	}
+}
+
+func recoverErr(err *error, recovered any, stack []byte) {
+	e, ok := recovered.(error)
+	if !ok {
+		e = fmt.Errorf("%s", recovered)
+	}
+
+	// `e` will be nil in the following case:
+	// 		var err error
+	// 		panic(err)
+	if e == nil {
+		e = New("error(nil)")
+	}
+
+	if stack != nil {
+		e = &panicStackError{err: e, stack: stack}
+	}
+
+	// TODO: err may already have a value. keep the original value?
+	*err = Cause(ErrPanic, e)
 }
 
 type panicStackError struct {
