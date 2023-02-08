@@ -42,13 +42,6 @@ func recoverErr(err *error, recovered any, stack []byte) {
 		e = fmt.Errorf("%s", recovered)
 	}
 
-	// `e` will be nil in the following case:
-	// 		var err error
-	// 		panic(err)
-	if e == nil {
-		e = New("error(nil)")
-	}
-
 	if stack != nil {
 		e = &panicStackError{err: e, stack: stack}
 	}

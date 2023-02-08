@@ -30,6 +30,7 @@ func Cause(err, cause error) error {
 	if err == nil {
 		return cause
 	}
+
 	return &causeError2{causeError{err: err, cause: cause}}
 }
 
